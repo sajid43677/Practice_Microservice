@@ -21,7 +21,7 @@ namespace Product.Data
                         new Models.Product { Name = "Keyboard", Price = 20 },
                         new Models.Product { Name = "Mouse", Price = 5 },
                         new Models.Product { Name = "Monitor", Price = 150 }
-                                                                                                                );
+                    );
                     context.SaveChanges();
                 }
                 else
