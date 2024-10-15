@@ -1,4 +1,4 @@
-﻿namespace Product.Data
+﻿namespace Products.Data
 {
     public interface IProductRepo
     {

@@ -1,6 +1,6 @@
-﻿using Product = Product.Models.Product;
+﻿using Product = Products.Models.Product;
 
-namespace Product.Data
+namespace Products.Data
 {
     public class ProductRepo : IProductRepo
     {
@@ -11,7 +11,7 @@ namespace Product.Data
             _context = context;
         }
 
-        public void CreateProduct(Models.Product product)
+        public void CreateProduct(Product product)
         {
             if (product == null)
             {
@@ -20,19 +20,19 @@ namespace Product.Data
             _context.Products.Add(product);
         }
 
-        public IEnumerable<Models.Product> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts()
         {
             return _context.Products.ToList();
         }
 
-        public Models.Product GetProductById(int id)
+        public Product GetProductById(int id)
         {
             return _context.Products.FirstOrDefault(p => p.Id == id);
         }
 
         public bool SaveChanges()
         {
-            return (_context.SaveChanges() >= 0);
+            return _context.SaveChanges() >= 0;
         }
     }
 }

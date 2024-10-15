@@ -1,16 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Products.Models
+namespace Products.DTOs
 {
-    public class Product
+    public class ProductReadDto
     {
-        [Key]
-        [Required]
-        public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public int Price { get; set; }
 
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Price { get; set; }
     }
 }
