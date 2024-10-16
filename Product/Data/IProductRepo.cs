@@ -1,10 +1,12 @@
-﻿namespace Products.Data
+﻿using ProductService.Models;
+
+namespace ProductService.Data
 {
     public interface IProductRepo
     {
         bool SaveChanges();
-        IEnumerable<Models.Product> GetAllProducts();
-        Models.Product GetProductById(int id);
-        void CreateProduct(Models.Product product);
+        IEnumerable<Product> GetAllProducts();
+        Product GetProductById(int id);
+        void CreateProduct(Product product);
     }
 }

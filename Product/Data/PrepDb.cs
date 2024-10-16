@@ -1,6 +1,6 @@
-﻿using Product = Products.Models.Product;
+﻿using Product = ProductService.Models.Product;
 
-namespace Products.Data
+namespace ProductService.Data
 {
     public static class PrepDb
     {

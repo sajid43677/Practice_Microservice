@@ -1,17 +1,13 @@
-using Microsoft.EntityFrameworkCore;
-using ProductService.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
+// Add HttpClient service
+builder.Services.AddHttpClient();
+
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("InMem"));
-builder.Services.AddScoped<IProductRepo, ProductRepo>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -26,8 +22,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-PrepDb.PrepPopulation(app);
 
 app.MapControllers();
 

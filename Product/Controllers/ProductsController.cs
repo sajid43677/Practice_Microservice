@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Products.Data;
-using Products.DTOs;
+using ProductService.Data;
+using ProductService.DTOs;
 
-namespace Products.Controllers
+namespace ProductService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
