@@ -17,4 +17,10 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JwtConfiguration\JwtConfiguration.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties ocelot_1json__JsonSchema="https://json.schemastore.org/ocelot.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

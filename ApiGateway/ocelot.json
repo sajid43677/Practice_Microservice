@@ -35,6 +35,13 @@
           "Port": 5001
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      },
       "FileCacheOptions": {
         "TtlSeconds": 10
       },

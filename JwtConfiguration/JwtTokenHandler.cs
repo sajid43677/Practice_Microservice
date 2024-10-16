@@ -42,7 +42,7 @@ namespace JwtConfiguration
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, request.Username),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim("Role", user.Role)
             });
 
             var signingCredentials = new SigningCredentials(
