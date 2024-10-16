@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Data;
 using ProductService.DTOs;
@@ -7,26 +8,28 @@ namespace ProductService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductController : ControllerBase
     {
         private readonly IProductRepo _repository;
         private readonly IMapper _mapper;
 
-        public ProductsController(IProductRepo repository,
-                                 IMapper mapper)
+        public ProductController(IProductRepo repository,
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllProducts")]
+        [Authorize]
         public ActionResult<IEnumerable<ProductReadDto>> GetAllProducts()
         {
             var productItems = _repository.GetAllProducts();
             return Ok(_mapper.Map<IEnumerable<ProductReadDto>>(productItems));
         }
 
-        [HttpGet("{id}", Name = "GetProductById")]
+        [HttpGet("GetProductById/{id}")]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult<ProductReadDto> GetProductById(int id)
         {
             var productItem = _repository.GetProductById(id);
@@ -37,7 +40,8 @@ namespace ProductService.Controllers
             return NotFound();
         }
 
-        [HttpPost]
+        [HttpPost("CreateProduct")]
+        [Authorize(Roles= "Admin")]
         public ActionResult<ProductReadDto> CreateProduct(ProductCreateDto productCreateDto)
         {
             var productModel = _mapper.Map<Models.Product>(productCreateDto);
@@ -48,6 +52,5 @@ namespace ProductService.Controllers
 
             return CreatedAtRoute(nameof(GetProductById), new { id = productReadDto.Id }, productReadDto);
         }
-
     }
 }

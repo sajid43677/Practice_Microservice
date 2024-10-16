@@ -4,20 +4,20 @@ namespace OrderService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase
+    public class OrderController : ControllerBase
     {
         private readonly HttpClient _httpClient;
 
-        public OrdersController(HttpClient httpClient)
+        public OrderController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        [HttpGet]
+        [HttpGet("GetOrderWithProducts")]
         public async Task<IActionResult> GetOrderWithProducts()
         {
             // Call the ProductService to get product details
-            var productResponse = await _httpClient.GetAsync("http://localhost:5001/api/products");
+            var productResponse = await _httpClient.GetAsync("https://localhost:5001/api/product/GetAllProducts");
             var products = await productResponse.Content.ReadAsStringAsync();
 
             var order = new

@@ -1,4 +1,4 @@
-using ApiGateway;
+using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -6,19 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add Ocelot
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
-builder.Services.AddOcelot();
-
-// Configure logging
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole(); // Add logging to the console
-builder.Logging.SetMinimumLevel(LogLevel.Information);
-
-// Add HttpClient service
-builder.Services.AddHttpClient("withLogging")
-    .AddHttpMessageHandler<CustomDelegatingHandler>();
-
 builder.Services.AddOcelot()
-    .AddDelegatingHandler<CustomDelegatingHandler>();
+    .AddCacheManager(x =>
+    {
+        x.WithDictionaryHandle();
+    });
 
 
 // Add services to the container.
