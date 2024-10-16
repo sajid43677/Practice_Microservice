@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Data;
 using ProductService.DTOs;
+using ProductService.Models;
 
 namespace ProductService.Controllers
 {
@@ -29,7 +30,7 @@ namespace ProductService.Controllers
         }
 
         [HttpGet("GetProductById/{id}")]
-        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<ProductReadDto> GetProductById(int id)
         {
             var productItem = _repository.GetProductById(id);
@@ -44,7 +45,7 @@ namespace ProductService.Controllers
         [Authorize(Roles= "Admin")]
         public ActionResult<ProductReadDto> CreateProduct(ProductCreateDto productCreateDto)
         {
-            var productModel = _mapper.Map<Models.Product>(productCreateDto);
+            var productModel = _mapper.Map<Product>(productCreateDto);
             _repository.CreateProduct(productModel);
             _repository.SaveChanges();
 

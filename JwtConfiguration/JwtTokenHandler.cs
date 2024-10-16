@@ -41,8 +41,8 @@ namespace JwtConfiguration
             var tokenKey = Encoding.ASCII.GetBytes(JWT_SECRET);
             var claimsIdentity = new ClaimsIdentity(new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, request.Username),
-                new Claim("Role", user.Role)
+                new(JwtRegisteredClaimNames.Sub, request.Username),
+                new(/*ClaimTypes.Role*/"Role", user.Role)
             });
 
             var signingCredentials = new SigningCredentials(
