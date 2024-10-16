@@ -45,7 +45,6 @@
       "FileCacheOptions": {
         "TtlSeconds": 10
       },
-      //"SwaggerKey": "products"
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "10s",
@@ -65,7 +64,13 @@
           "Port": 5002
         }
       ],
-      "SwaggerKey": "orders"
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "User"
+      }
     }
   ]
 }

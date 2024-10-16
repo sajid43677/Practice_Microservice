@@ -42,7 +42,7 @@ namespace ProductService.Controllers
         }
 
         [HttpPost("CreateProduct")]
-        [Authorize(Roles= "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<ProductReadDto> CreateProduct(ProductCreateDto productCreateDto)
         {
             var productModel = _mapper.Map<Product>(productCreateDto);
