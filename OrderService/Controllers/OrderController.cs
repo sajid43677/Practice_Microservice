@@ -17,7 +17,7 @@ namespace OrderService.Controllers
         public async Task<IActionResult> GetOrderWithProducts()
         {
             // Call the ProductService to get product details
-            var productResponse = await _httpClient.GetAsync("https://localhost:5001/api/product/GetAllProducts");
+            var productResponse = await _httpClient.GetAsync("https://localhost:5000/gateway/products/product/GetAllProducts");
             var products = await productResponse.Content.ReadAsStringAsync();
 
             var order = new

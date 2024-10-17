@@ -30,7 +30,7 @@ namespace ProductService.Controllers
         }
 
         [HttpGet("GetProductById/{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult<ProductReadDto> GetProductById(int id)
         {
             var productItem = _repository.GetProductById(id);
@@ -42,7 +42,7 @@ namespace ProductService.Controllers
         }
 
         [HttpPost("CreateProduct")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult<ProductReadDto> CreateProduct(ProductCreateDto productCreateDto)
         {
             var productModel = _mapper.Map<Product>(productCreateDto);

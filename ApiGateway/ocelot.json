@@ -1,15 +1,20 @@
 ﻿{
-  "RateLimitOptions": {
-    "ClientWhitelist": [],
-    "EnableRateLimiting": true,
-    "Period": "4s",
-    "PeriodTimespan": 4,
-    "Limit": 1
-  },
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:5000"
   },
   "Routes": [
+    {
+      "UpstreamPathTemplate": "/gateway/graphql/{everything}",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/graphql/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
     // auth api
     {
       "UpstreamPathTemplate": "/gateway/accounts/{everything}",
