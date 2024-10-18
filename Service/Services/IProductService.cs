@@ -12,5 +12,6 @@ namespace Service.Services
         bool CreateProduct(Product product);
         IEnumerable<Product> GetAllProducts();
         Product GetProduct(int id);
+        IEnumerable<Product> GetProductsAbovePrice(int price);
     }
 }

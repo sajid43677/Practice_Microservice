@@ -7,5 +7,6 @@ namespace ProductsWebApi.Factories
         ProductReadModel CreateProduct(ProductCreateModel productCreateModel);
         IEnumerable<ProductReadModel> GetAllProducts();
         ProductReadModel GetProductById(int id);
+        IEnumerable<ProductReadModel> GetProductsAbovePrice(int price);
     }
 }

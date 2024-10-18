@@ -1,3 +1,5 @@
+using Butterfly.Client.AspNetCore;
+using Butterfly.DataContract.Tracing;
 using Data.Configuration;
 using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +8,11 @@ using Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddButterfly(option =>
+{
+    option.CollectorUrl = "http://localhost:9618";
+    option.Service = "ProductWebApi";
+});
 
 // Add services to the container.
 builder.Services.AddScoped<IProductRepo, ProductRepo>();

@@ -36,5 +36,10 @@ namespace Service.Services
             _repository.CreateProduct(product);
             return _repository.SaveChanges();
         }
+
+        public IEnumerable<Product> GetProductsAbovePrice(int price)
+        {
+            return _repository.GetAllProducts().Where(p => p.Price > price).ToList();
+        }
     }
 }

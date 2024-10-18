@@ -31,5 +31,11 @@ namespace ProductsWebApi.Controllers
         {
             return Ok(productModelFactory.CreateProduct(productCreateModel));
         }
+
+        [HttpGet("GetProductsAbovePrice/{price}")]
+        public ActionResult<IEnumerable<ProductReadModel>> GetProductsAbovePrice(int price)
+        {
+            return Ok(productModelFactory.GetProductsAbovePrice(price));
+        }
     }
 }

@@ -35,5 +35,11 @@ namespace ProductsWebApi.Factories
             return _mapper.Map<IEnumerable<ProductReadModel>>(productItems);
         }
 
+        public IEnumerable<ProductReadModel> GetProductsAbovePrice(int price)
+        {
+            var productItems = productService.GetProductsAbovePrice(price);
+            return _mapper.Map<IEnumerable<ProductReadModel>>(productItems);
+        }
+
     }
 }
