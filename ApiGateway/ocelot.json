@@ -18,6 +18,21 @@
         "UseTracing": true
       }
     },
+    {
+      "UpstreamPathTemplate": "/gateway/ProductService/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5005
+        }
+      ],
+      "HttpHandlerOptions": {
+        "UseTracing": true
+      }
+    },
     // auth api
     {
       "UpstreamPathTemplate": "/gateway/accounts/{everything}",
