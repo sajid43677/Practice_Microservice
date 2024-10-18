@@ -13,6 +13,7 @@ builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<ProductMutation>();
 builder.Services.AddScoped<ProductType>();
 builder.Services.AddScoped<ProductQuery>();
+builder.Services.AddScoped<ProductSchema>();
 
 builder.Services.AddControllers();
 builder.Services.AddCustomJwtAuth();

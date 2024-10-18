@@ -2,6 +2,7 @@ using JwtConfiguration;
 using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Tracing.Butterfly;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,11 @@ builder.Services.AddOcelot()
     .AddCacheManager(x =>
     {
         x.WithDictionaryHandle();
+    })
+    .AddButterfly(option =>
+    {
+        option.CollectorUrl = "http://localhost:9618";
+        option.Service = "ApiGateway";
     });
 
 
