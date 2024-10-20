@@ -1,44 +1,59 @@
 ﻿using Core.Domains;
 using Data.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
-namespace Data.Repositories
+public class ProductRepo : IProductRepo
 {
-    public class ProductRepo : IProductRepo
+    private readonly IDbContextFactory<AppDbContext> _contextFactory;
+
+    public ProductRepo(IDbContextFactory<AppDbContext> contextFactory)
     {
-        private readonly AppDbContext _context;
-
-        public ProductRepo(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        public void CreateProduct(Product product)
-        {
-            if (product == null)
-            {
-                throw new ArgumentNullException(nameof(product));
-            }
-            _context.Products.Add(product);
-        }
-
-        public IEnumerable<Product> GetAllProducts()
-        {
-            return _context.Products.ToList();
-        }
-
-        public Product GetProductById(int id)
-        {
-            return _context.Products.FirstOrDefault(p => p.Id == id);
-        }
-
-        public bool SaveChanges()
-        {
-            return _context.SaveChanges() >= 0;
-        }
+        _contextFactory = contextFactory;
     }
+
+    public IEnumerable<Product> GetAllProducts()
+    {
+        // Use the context factory to create a fresh context
+        using var context = _contextFactory.CreateDbContext();
+        return context.Products.ToList();
+    }
+
+    public Product GetProductById(int id)
+    {
+        using var context = _contextFactory.CreateDbContext();
+        return context.Products.FirstOrDefault(p => p.Id == id);
+    }
+
+    public bool CreateProduct(Product product)
+    {
+        using var context = _contextFactory.CreateDbContext();
+        if (product == null)
+        {
+            throw new ArgumentNullException(nameof(product));
+        }
+        context.Products.Add(product);
+        return context.SaveChanges() >= 0;
+    }
+
+    public bool DeleteProduct(int id)
+    {
+        using var context = _contextFactory.CreateDbContext();
+        var product = context.Products.FirstOrDefault(p => p.Id == id);
+        if (product == null)
+        {
+            return false;
+        }
+        context.Products.Remove(product);
+        return context.SaveChanges() >= 0;
+    }
+
+    public Product? UpdateProduct(Product product)
+    { 
+        using var context = _contextFactory.CreateDbContext();
+        context.Products.Update(product);
+        context.SaveChanges();
+        return product;
+    }
+
 }

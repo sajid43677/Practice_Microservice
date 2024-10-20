@@ -1,12 +1,11 @@
-﻿using Service.Models;
+﻿using Core.Domains;
+using Service.Models;
 
 namespace ProductsWebApi.Factories
 {
     public interface IProductModelFactory
     {
-        ProductReadModel CreateProduct(ProductCreateModel productCreateModel);
-        IEnumerable<ProductReadModel> GetAllProducts();
-        ProductReadModel GetProductById(int id);
-        IEnumerable<ProductReadModel> GetProductsAbovePrice(int price);
+        ProductListModel PrepareProductListModel(IEnumerable<Product> products);
+        ProductReadModel PrepareProductReadModel(Product product);
     }
 }

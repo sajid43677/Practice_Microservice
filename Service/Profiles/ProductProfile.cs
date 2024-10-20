@@ -10,6 +10,7 @@ namespace Service.Profiles
         {
             CreateMap<Product, ProductCreateModel>().ReverseMap();
             CreateMap<ProductReadModel, Product>().ReverseMap();
+            CreateMap<Product, ProductUpdateModel>().ReverseMap();
         }
     }
 }

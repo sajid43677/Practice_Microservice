@@ -9,36 +9,27 @@ namespace ProductsWebApi.Factories
     public class ProductModelFactory : IProductModelFactory
     {
         private readonly IMapper _mapper;
-        private readonly IProductService productService;
-        public ProductModelFactory(IMapper mapper, IProductService productService)
+
+        public ProductModelFactory(IMapper mapper)
         {
             _mapper = mapper;
-            this.productService = productService;
         }
 
-        public ProductReadModel GetProductById(int id)
+        public ProductReadModel PrepareProductReadModel(Product product)
         {
-            var productItem = productService.GetProduct(id);
-            return _mapper.Map<ProductReadModel>(productItem);
+            return _mapper.Map<ProductReadModel>(product);
         }
 
-        public ProductReadModel CreateProduct(ProductCreateModel productCreateModel)
+        public ProductListModel PrepareProductListModel(IEnumerable<Product> products)
         {
-            var productItem = _mapper.Map<Product>(productCreateModel);
-            var product = productService.CreateProduct(productItem);
-            return product ? _mapper.Map<ProductReadModel>(productItem) : new ProductReadModel();
-        }
+            var productListModel = new ProductListModel();
 
-        public IEnumerable<ProductReadModel> GetAllProducts()
-        {
-            var productItems = productService.GetAllProducts();
-            return _mapper.Map<IEnumerable<ProductReadModel>>(productItems);
-        }
+            foreach (var product in products)
+            {
+                productListModel.ProductReadModels.Add(PrepareProductReadModel(product));
+            }
 
-        public IEnumerable<ProductReadModel> GetProductsAbovePrice(int price)
-        {
-            var productItems = productService.GetProductsAbovePrice(price);
-            return _mapper.Map<IEnumerable<ProductReadModel>>(productItems);
+            return productListModel;
         }
 
     }

@@ -1,11 +1,5 @@
-﻿using AutoMapper;
-using Core.Domains;
+﻿using Core.Domains;
 using Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Services
 {
@@ -33,13 +27,41 @@ namespace Service.Services
             {
                 throw new ArgumentNullException(nameof(product));
             }
-            _repository.CreateProduct(product);
-            return _repository.SaveChanges();
+            return _repository.CreateProduct(product);
         }
 
         public IEnumerable<Product> GetProductsAbovePrice(int price)
         {
             return _repository.GetAllProducts().Where(p => p.Price > price).ToList();
+        }
+
+        public Product? DeleteProduct(int id)
+        {
+            var product = _repository.GetProductById(id);
+
+            if (_repository.DeleteProduct(id))
+            {
+                return product;
+            }
+
+            throw new ArgumentException("Invalid Id.");
+        }
+
+        public Product? UpdateProduct(Product product)
+        {
+            if (product == null || product.Id <= 0)
+            {
+                throw new ArgumentException("Invalid product data.");
+            }
+
+            var existingProduct = _repository.GetProductById(product.Id);
+
+            if (existingProduct == null)
+            {
+                throw new KeyNotFoundException($"Product not found.");
+            }
+
+            return _repository.UpdateProduct(product);
         }
     }
 }
