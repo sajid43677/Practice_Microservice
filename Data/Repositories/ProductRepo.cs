@@ -12,47 +12,51 @@ public class ProductRepo : IProductRepo
         _contextFactory = contextFactory;
     }
 
-    public IEnumerable<Product> GetAllProducts()
+    public async Task<IEnumerable<Product>> GetAllProductsAsync()
     {
-        // Use the context factory to create a fresh context
-        using var context = _contextFactory.CreateDbContext();
-        return context.Products.ToList();
+        using var context = await _contextFactory.CreateDbContextAsync();
+
+        return await context.Products.ToListAsync();
     }
 
-    public Product GetProductById(int id)
+    public async Task<Product> GetProductByIdAsync(int id)
     {
-        using var context = _contextFactory.CreateDbContext();
-        return context.Products.FirstOrDefault(p => p.Id == id);
+        using var context = await _contextFactory.CreateDbContextAsync();
+
+        return await context.Products.FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public bool CreateProduct(Product product)
+    public async Task<bool> CreateProductAsync(Product product)
     {
-        using var context = _contextFactory.CreateDbContext();
+        using var context = await _contextFactory.CreateDbContextAsync();
+
         if (product == null)
         {
             throw new ArgumentNullException(nameof(product));
         }
-        context.Products.Add(product);
-        return context.SaveChanges() >= 0;
+        await context.Products.AddAsync(product);
+
+        return await context.SaveChangesAsync() >= 0;
     }
 
-    public bool DeleteProduct(int id)
+    public async Task<bool> DeleteProductAsync(int id)
     {
-        using var context = _contextFactory.CreateDbContext();
-        var product = context.Products.FirstOrDefault(p => p.Id == id);
+        using var context = await _contextFactory.CreateDbContextAsync();
+        var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
         if (product == null)
         {
             return false;
         }
+
         context.Products.Remove(product);
-        return context.SaveChanges() >= 0;
+        return await context.SaveChangesAsync() >= 0;
     }
 
-    public Product? UpdateProduct(Product product)
+    public async Task<Product?> UpdateProductAsync(Product product)
     { 
-        using var context = _contextFactory.CreateDbContext();
+        using var context = await _contextFactory.CreateDbContextAsync();
         context.Products.Update(product);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         return product;
     }
 

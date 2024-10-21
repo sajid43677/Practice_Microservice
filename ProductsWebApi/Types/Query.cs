@@ -1,8 +1,4 @@
-﻿using Core.Domains;
-using Data.Configuration;
-using Data.Repositories;
-using Microsoft.EntityFrameworkCore;
-using ProductsWebApi.Factories;
+﻿using ProductsWebApi.Factories;
 using Service.Models;
 using Service.Services;
 
@@ -18,15 +14,15 @@ namespace ProductsWebApi.Types
             _productModelFactory = productModelFactory;
         }
 
-        public ProductListModel GetProducts()
+        public async Task<ProductListModel> GetProducts()
         {
-            var products = _productService.GetAllProducts();
+            var products = await _productService.GetAllProductsAsync();
             return _productModelFactory.PrepareProductListModel(products);
         }
 
-        public ProductReadModel GetProductById(int id)
+        public async Task<ProductReadModel> GetProductById(int id)
         {
-            var product = _productService.GetProduct(id);
+            var product = await _productService.GetProductAsync(id);
             return _productModelFactory.PrepareProductReadModel(product);
         }
 

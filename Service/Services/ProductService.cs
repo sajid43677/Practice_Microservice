@@ -11,35 +11,35 @@ namespace Service.Services
             _repository = repository;
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            return _repository.GetAllProducts();
+            return await _repository.GetAllProductsAsync();
         }
 
-        public Product GetProduct(int id)
+        public async Task<Product> GetProductAsync(int id)
         {
-            return _repository.GetProductById(id);
+            return await _repository.GetProductByIdAsync(id);
         }
 
-        public bool CreateProduct(Product product)
+        public async Task<bool> CreateProductAsync(Product product)
         {
             if (product == null)
             {
                 throw new ArgumentNullException(nameof(product));
             }
-            return _repository.CreateProduct(product);
+            return await _repository.CreateProductAsync(product);
         }
 
-        public IEnumerable<Product> GetProductsAbovePrice(int price)
+        public async Task<IEnumerable<Product>> GetProductsAbovePriceAsync(int price)
         {
-            return _repository.GetAllProducts().Where(p => p.Price > price).ToList();
+            return (await _repository.GetAllProductsAsync()).Where(p => p.Price > price).ToList();
         }
 
-        public Product? DeleteProduct(int id)
+        public async Task<Product?> DeleteProductAsync(int id)
         {
-            var product = _repository.GetProductById(id);
+            var product = await _repository.GetProductByIdAsync(id);
 
-            if (_repository.DeleteProduct(id))
+            if (await _repository.DeleteProductAsync(id))
             {
                 return product;
             }
@@ -47,21 +47,21 @@ namespace Service.Services
             throw new ArgumentException("Invalid Id.");
         }
 
-        public Product? UpdateProduct(Product product)
+        public async Task<Product?> UpdateProductAsync(Product product)
         {
             if (product == null || product.Id <= 0)
             {
                 throw new ArgumentException("Invalid product data.");
             }
 
-            var existingProduct = _repository.GetProductById(product.Id);
+            var existingProduct = await _repository.GetProductByIdAsync(product.Id);
 
             if (existingProduct == null)
             {
                 throw new KeyNotFoundException($"Product not found.");
             }
 
-            return _repository.UpdateProduct(product);
+            return await _repository.UpdateProductAsync(product);
         }
     }
 }

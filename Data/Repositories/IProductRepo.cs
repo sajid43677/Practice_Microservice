@@ -4,10 +4,10 @@ namespace Data.Repositories
 {
     public interface IProductRepo
     {
-        IEnumerable<Product> GetAllProducts();
-        Product GetProductById(int id);
-        bool CreateProduct(Product product);
-        bool DeleteProduct(int id);
-        Product? UpdateProduct(Product product);
+        Task<bool> CreateProductAsync(Product product);
+        Task<bool> DeleteProductAsync(int id);
+        Task<IEnumerable<Product>> GetAllProductsAsync();
+        Task<Product> GetProductByIdAsync(int id);
+        Task<Product?> UpdateProductAsync(Product product);
     }
 }

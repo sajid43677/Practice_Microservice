@@ -1,5 +1,4 @@
 using Butterfly.Client.AspNetCore;
-using Butterfly.DataContract.Tracing;
 using Data.Configuration;
 using Data.Repositories;
 using Microsoft.EntityFrameworkCore;

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Core.Domains;
-using Data.Repositories;
 using Service.Models;
-using Service.Services;
 
 namespace ProductsWebApi.Factories
 {

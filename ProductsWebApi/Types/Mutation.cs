@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Core.Domains;
-using Microsoft.AspNetCore.Http.HttpResults;
 using ProductsWebApi.Factories;
 using Service.Models;
 using Service.Services;
@@ -20,25 +19,25 @@ namespace ProductsWebApi.Types
             _mapper = mapper;
         }
 
-        public ProductReadModel CreateProduct(ProductCreateModel productCreateModel)
+        public async Task<ProductReadModel> CreateProduct(ProductCreateModel productCreateModel)
         {
             var product = _mapper.Map<Product>(productCreateModel);
-            var createdProduct = _productService.CreateProduct(product);
+            var createdProduct = await _productService.CreateProductAsync(product);
 
             return _productModelFactory.PrepareProductReadModel(product);
         }
 
-        public ProductReadModel DeleteProduct(int id)
+        public async Task<ProductReadModel> DeleteProduct(int id)
         {
-            var product = _productService.DeleteProduct(id);
+            var product = await _productService.DeleteProductAsync(id);
             
             return _productModelFactory.PrepareProductReadModel(product);
         }
 
-        public ProductReadModel UpdateProduct(ProductUpdateModel productUpdateModel)
+        public async Task<ProductReadModel> UpdateProduct(ProductUpdateModel productUpdateModel)
         {
             var product = _mapper.Map<Product>(productUpdateModel);
-            var updatedProduct = _productService.UpdateProduct(product);
+            var updatedProduct = await _productService.UpdateProductAsync(product);
 
             return _productModelFactory.PrepareProductReadModel(updatedProduct);
         }

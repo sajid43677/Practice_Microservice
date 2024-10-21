@@ -1,11 +1,8 @@
 ﻿using EntityGraphQL.Schema;
-using GraphQL;
-using GraphQL.Resolvers;
 using GraphQL.Types;
 using ProductService.Data;
 using ProductService.Models;
 using System.Linq.Expressions;
-using System;
 
 namespace ProductService.Utilities;
 public class ProductMutation : ObjectGraphType
