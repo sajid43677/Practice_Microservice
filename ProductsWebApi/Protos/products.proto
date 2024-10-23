@@ -1,0 +1,44 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ProductGrpc";
+
+service ProductService {
+  rpc GetAllProducts (Empty) returns (ProductListModel);
+}
+
+message Empty {}
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  int32 price = 3;
+}
+
+message ProductListModel {
+  repeated ProductReadModel ProductReadModels = 1;
+}
+
+message ProductRequest {
+  int32 id = 1;
+}
+
+message ProductResponse {
+  int32 id = 1;
+  string name = 2;
+  int32 price = 3;
+}
+
+message CreateProductRequest {
+  string name = 1;
+  int32 price = 2;
+}
+
+message ProductPriceRequest {
+  int32 price = 1;
+}
+
+message ProductReadModel {
+  int32 id = 1;
+  string name = 2;
+  int32 price = 3;
+}

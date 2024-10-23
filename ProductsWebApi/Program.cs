@@ -2,6 +2,7 @@ using Butterfly.Client.AspNetCore;
 using Data.Configuration;
 using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using ProductsWebApi;
 using ProductsWebApi.Factories;
 using ProductsWebApi.Types;
 using Service.Services;
@@ -20,6 +21,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductModelFactory, ProductModelFactory>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<Query>();
+builder.Services.AddGrpc();
 
 // Register GraphQL
 builder.Services.AddGraphQLServer()
@@ -43,6 +45,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGrpcService<ProductGrpcService>();
+});
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
