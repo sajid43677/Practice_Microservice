@@ -8,14 +8,8 @@ namespace OrderService.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly HttpClient _httpClient;
-        private readonly ProductService.ProductServiceClient _productServiceClient;
-
-
-        public OrderController(HttpClient httpClient, ProductService.ProductServiceClient productServiceClient)
+        public OrderController()
         {
-            _httpClient = httpClient;
-            _productServiceClient = productServiceClient;
         }
 
         [HttpGet("GetOrderWithProducts")]
