@@ -22,14 +22,10 @@ namespace OrderService.Controllers
         public async Task<IActionResult> GetOrderWithProducts()
         {
             // Call the ProductService to get product details
-            var productResponse = await _httpClient.GetAsync("https://localhost:5000/gateway/products/product/GetAllProducts");
-            var products = await productResponse.Content.ReadAsStringAsync();
-
-            using var channel = GrpcChannel.ForAddress("https://localhost:5005"); // Product service URL
+            using var channel = GrpcChannel.ForAddress(OrderServiceDefault.ProductGrpcServiceUrl); // Product service URL
             var client = new ProductService.ProductServiceClient(channel);
 
             var productsResponse = await client.GetAllProductsAsync(new Empty());
-
 
             var order = new
             {
