@@ -10,6 +10,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddGrpcClient<ProductGrpc.ProductService.ProductServiceClient>(o =>
+{
+    o.Address = new Uri("https://localhost:5005"); // Use the URL of your ProductService gRPC server
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
